@@ -1,0 +1,294 @@
+LAMMPS (27 Jun 2024)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+#----------------- supercell size, lattice constant --------------------------------------
+variable        xbox equal 2
+variable        ybox equal 60
+variable        zbox equal 15
+variable        a equal 3.304
+
+variable        dx equal sqrt(6)
+variable        dy equal sqrt(3)/2
+variable        dz equal sqrt(2)
+
+
+# ------ run variables ------- #
+variable T equal 0.001
+variable T2 equal 2
+variable tstep equal 0.002
+variable runtime equal 500000
+variable Srandomseed equal 1001
+
+
+variable xlength equal ${xbox}*${dx}*$a
+variable xlength equal 2*${dx}*$a
+variable xlength equal 2*2.44948974278318*$a
+variable xlength equal 2*2.44948974278318*3.304
+variable ylength equal ${ybox}*${dy}*$a
+variable ylength equal 60*${dy}*$a
+variable ylength equal 60*0.866025403784439*$a
+variable ylength equal 60*0.866025403784439*3.304
+variable zlength equal ${zbox}*${dz}*$a
+variable zlength equal 15*${dz}*$a
+variable zlength equal 15*1.4142135623731*$a
+variable zlength equal 15*1.4142135623731*3.304
+variable zhalf equal ${zlength}*3/8
+variable zhalf equal 70.0884241512108*3/8
+variable zfull equal ${zlength}*6/8
+variable zfull equal 70.0884241512108*6/8
+
+variable b2 equal ${a}/${dy}/2
+variable b2 equal 3.304/${dy}/2
+variable b2 equal 3.304/0.866025403784439/2
+
+# -------------- store initial positions of central glide plane (CGP) ----------------------------
+
+variable y1 equal (${ybox}+(${dy}/4)+0.1)*${dy}*${a}/2
+variable y1 equal (60+(${dy}/4)+0.1)*${dy}*${a}/2
+variable y1 equal (60+(0.866025403784439/4)+0.1)*${dy}*${a}/2
+variable y1 equal (60+(0.866025403784439/4)+0.1)*0.866025403784439*${a}/2
+variable y1 equal (60+(0.866025403784439/4)+0.1)*0.866025403784439*3.304/2
+variable y2 equal (${ybox})*${dy}*${a}/2
+variable y2 equal (60)*${dy}*${a}/2
+variable y2 equal (60)*0.866025403784439*${a}/2
+variable y2 equal (60)*0.866025403784439*3.304/2
+variable y3 equal ${y2}-0.5
+variable y3 equal 85.8404380231136-0.5
+variable y4 equal ${y1}+0.5
+variable y4 equal 86.2932554198188+0.5
+
+variable zcut1 equal ${a}*1/2
+variable zcut1 equal 3.304*1/2
+variable zcut2 equal ${a}*2/2
+variable zcut2 equal 3.304*2/2
+
+
+# -------------- general settings --------------------------------------------------------
+dimension       3
+boundary        p p f
+units metal
+atom_style      atomic
+
+# ---------- Read atomistic Structure ---------------------
+read_data ini_disc.data
+Reading data file ...
+  orthogonal box = (0 0 0) to (16.186228 171.68088 70.088424)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  8214 atoms
+  read_data CPU = 0.019 seconds
+# boundary        p f f
+
+# -------------- creating a upper & lower regions and as well as - region & simulation box ----------------------
+# lattice bcc ${a} orient x 1 1 -1 orient y -1 2 1 orient z 1 0 1
+# lattice bcc ${a} orient x 1 0 -1 orient y 0 1 0 orient z 1 0 1
+# lattice fcc ${a} orient x 1 1 -2 orient y 1 -1 0 orient z -1 -1 -1 spacing ${dx} ${dy} ${dz} origin 0.0 0.0 0.0
+# region whole block 0.000000 ${xlength} 0.000000 ${ylength} 0.0 ${zlength} units box
+# create_box 2 whole
+
+# region latupper block INF INF INF INF  0.0 ${zhalf} units box
+# lattice bcc ${a} orient x 1 -2 -1 orient y 1 1 -1 orient z 1 0 1
+# lattice fcc ${a} orient x  1 1 -2 orient y 1 -1 0 orient z -1 -1 -1 spacing ${dx} ${dy} ${dz}
+# create_atoms 1 region latupper
+# group latupper region latupper
+
+# region latlower block INF INF INF INF ${zhalf} ${zfull} units box
+# lattice bcc ${a} orient x 1 -2 -1 orient y 1 1 -1 orient z 1 0 1
+# lattice fcc ${a} orient x  1 1 -2 orient y 1 -1 0 orient z -1 -1 -1 spacing ${dx} ${dy} ${dz}
+# create_atoms 1 region latlower
+# group latlower region latlower
+
+
+# ---------------- EAM potential ----------------------------------------
+
+# ---------- Define Interatomic Potential ---------------------
+pair_style eam/fs
+pair_coeff * * Ta_orig_FS.eam1.alloy Ta Ta
+
+#pair_style      eam/alloy
+#pair_coeff      * * FeNiCrCoCu-heafixed.eam.alloy.txt  Ni Ni
+neighbor        2.0 bin
+neigh_modify    delay 5
+
+write_data ini.data
+System init for write_data ...
+Neighbor list info ...
+  update: every = 1 steps, delay = 5 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 6.2
+  ghost atom cutoff = 6.2
+  binsize = 3.1, bins = 6 56 23
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/fs, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+
+# -------------- delete atoms to produce shockley partial ------------------------------
+
+# region plane block INF INF 93.2 93.6 ${zhalf} ${zlength} units box
+# group plane region plane
+
+#region  blayer block INF INF INF INF INF 0.5 units box
+#group blayer region blayer
+
+region  ulayer block INF INF INF INF 85 INF units box
+group ulayer region ulayer
+0 atoms in group ulayer
+
+# delete_atoms region plane
+# delete_atoms region blayer
+delete_atoms region ulayer
+Deleted 0 atoms, new total = 8214
+
+# write_data ini2.data
+# --------------------------------------------------------------------------------------
+
+#### define boundary atoms ####
+region 10 block INF INF INF 2 2 INF units box
+group lb region 10
+44 atoms in group lb
+
+region 11 block INF INF INF INF INF 1.99 units box
+group bb region 11
+360 atoms in group bb
+
+region 12 block INF INF 169 INF 2 INF units box
+group rb region 12
+92 atoms in group rb
+
+region 13 block INF INF INF INF 50 INF units box
+group ub region 13
+354 atoms in group ub
+
+
+#### fix the boundary atoms ####
+# set group lb velocity 0 0 0
+# set group bb velocity 0 0 0
+# set group rb velocity 0 0 0
+velocity lb set 0 0 0
+velocity bb set 0 0 0
+velocity rb set 0 0 0
+velocity ub set 0 0 0
+
+fix 10 lb setforce 0 0 0
+fix 11 bb setforce 0 0 0
+fix 12 rb setforce 0 0 0
+fix 13 ub setforce 0 0 0
+
+change_box all y delta 0 2 boundary p f f units box
+Changing box ...
+  orthogonal box = (0 0 0) to (16.186228 173.68088 70.088424)
+
+# boundary        p f f
+
+timestep ${tstep}
+timestep 0.002
+
+# ----- perform MD -------
+velocity all create ${T2} ${Srandomseed}
+velocity all create 2 ${Srandomseed}
+velocity all create 2 1001
+# fix 1 all npt temp ${T2} ${T} 0.01 iso 0.0 0.0 2
+# fix 1 all nvt temp ${T2} ${T} 0.01
+
+compute KE all ke/atom
+compute PE all pe/atom
+compute KET all ke
+compute PET all pe
+
+#----- end MD ------
+thermo 2
+thermo_style custom step lx lx ly lz atoms temp pe lx ly lz press c_KET c_PET
+thermo_modify lost ignore flush yes
+
+#dump 1 all custom 100 out_100/*.chkpt id type mass x y z
+dump  1 all custom 10 output-*.txt id type x y z mass c_KE c_PE
+
+min_style    cg
+min_modify   line backtrack
+minimize     1e-8 1.0e-10 10000 10000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
+
+@Article{Gissinger24,
+ author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
+ title = {Type Label Framework for Bonded Force Fields in LAMMPS},
+ journal = {J. Phys. Chem. B},
+ year =    2024,
+ volume =  128,
+ number =  13,
+ pages =   {3282–-3297}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Switching to 'neigh_modify every 1 delay 0 check yes' setting during minimization
+WARNING: A per-atom density exceeded rhomax of EAM potential table - a linear extrapolation to the energy was made (src/MANYBODY/pair_eam.cpp:334)
+Per MPI rank memory allocation (min/avg/max) = 5.944 | 5.944 | 5.944 Mbytes
+   Step           Lx             Lx             Ly             Lz          Atoms         Temp          PotEng           Lx             Ly             Lz           Press          c_KET          c_PET     
+         0   16.186228      16.186228      173.68088      70.088424           8214   2             -72548.181      16.186228      173.68088      70.088424     -160203.8       2.1232271     -72548.181    
+         2   16.186228      16.186228      173.68088      70.088424           8214   2             -72562.823      16.186228      173.68088      70.088424     -159981.25      2.1232271     -72562.823    
+         4   16.186228      16.186228      173.68088      70.088424           8214   2             -72570.774      16.186228      173.68088      70.088424     -159737.68      2.1232271     -72570.774    
+         6   16.186228      16.186228      173.68088      70.088424           8214   2             -72575.046      16.186228      173.68088      70.088424     -159573.1       2.1232271     -72575.046    
+         8   16.186228      16.186228      173.68088      70.088424           8214   2             -72576.317      16.186228      173.68088      70.088424     -159550.34      2.1232271     -72576.317    
+        10   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.169      16.186228      173.68088      70.088424     -159527.34      2.1232271     -72577.169    
+        12   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.479      16.186228      173.68088      70.088424     -159533.62      2.1232271     -72577.479    
+        14   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.59       16.186228      173.68088      70.088424     -159527.98      2.1232271     -72577.59     
+        16   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.652      16.186228      173.68088      70.088424     -159521.93      2.1232271     -72577.652    
+        18   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.713      16.186228      173.68088      70.088424     -159524.39      2.1232271     -72577.713    
+        20   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.763      16.186228      173.68088      70.088424     -159520.4       2.1232271     -72577.763    
+        22   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.808      16.186228      173.68088      70.088424     -159517.92      2.1232271     -72577.808    
+        24   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.821      16.186228      173.68088      70.088424     -159516.28      2.1232271     -72577.821    
+        26   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.833      16.186228      173.68088      70.088424     -159516.3       2.1232271     -72577.833    
+        28   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.842      16.186228      173.68088      70.088424     -159516.9       2.1232271     -72577.842    
+        30   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.847      16.186228      173.68088      70.088424     -159518.36      2.1232271     -72577.847    
+        32   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.855      16.186228      173.68088      70.088424     -159518.02      2.1232271     -72577.855    
+        34   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.867      16.186228      173.68088      70.088424     -159517.5       2.1232271     -72577.867    
+        36   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.871      16.186228      173.68088      70.088424     -159516.77      2.1232271     -72577.871    
+        37   16.186228      16.186228      173.68088      70.088424           8214   2             -72577.872      16.186228      173.68088      70.088424     -159516.63      2.1232271     -72577.872    
+Loop time of 0.487526 on 1 procs for 37 steps with 8214 atoms
+
+98.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+     -72548.1806525981  -72577.8711089305  -72577.8715070153
+  Force two-norm initial, final = 17.471993 0.040043423
+  Force max component initial, final = 3.2358637 0.0026687267
+  Final line search alpha, max atom move = 0.125 0.00033359084
+  Iterations, force evaluations = 37 95
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.39383    | 0.39383    | 0.39383    |   0.0 | 80.78
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0031032  | 0.0031032  | 0.0031032  |   0.0 |  0.64
+Output  | 0.058932   | 0.058932   | 0.058932   |   0.0 | 12.09
+Modify  | 0.001912   | 0.001912   | 0.001912   |   0.0 |  0.39
+Other   |            | 0.02975    |            |       |  6.10
+
+Nlocal:           8214 ave        8214 max        8214 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           6190 ave        6190 max        6190 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:         225064 ave      225064 max      225064 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 225064
+Ave neighs/atom = 27.400049
+Neighbor list builds = 0
+Dangerous builds = 0
+
+write_data relaxed_fin.lmp
+System init for write_data ...
+
+#run ${runtime}
+Total wall time: 0:00:00

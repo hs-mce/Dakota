@@ -1,0 +1,41 @@
+
+# Dakota Input File: rosen_syscall.in
+# Usage:
+#   dakota -i rosen_syscall_lamps.in -o rosen_syscall_lamps.out > rosen_syscall_lamps.stdout
+
+environment
+  tabular_data
+    tabular_data_file = 'rosen_syscall_lamps.dat'
+
+method
+  conmin_frcg
+    convergence_tolerance = 1e-6
+    max_iterations = 100
+
+model
+  single
+
+variables
+  continuous_design = 2
+    initial_point    1.2157     0.0271471
+    lower_bounds     -4.0     -4.0
+    upper_bounds      4.0      4.0
+    descriptors       'x1'     "x2"
+
+interface
+#  analysis_drivers = 'rosenbrock'
+  analysis_drivers = 'python compute_obj_fun_from_lammps.py'
+#  analysis_drivers = 'matlab -nodisplay -r "custom_function_in_matlab; quit"'
+    fork
+    parameters_file = 'params.in'
+    results_file    = 'results.out'
+    # file_tag
+    # file_save
+
+responses
+  objective_functions = 1
+  numerical_gradients
+    method_source dakota
+    interval_type forward
+    fd_step_size = 1.e-2
+  no_hessians
