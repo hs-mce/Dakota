@@ -1,0 +1,1627 @@
+Dakota version 6.20 released May 15, 2024.
+Repository revision ff549cf04 (2024-05-13) built May 13 2024 09:56:06.
+Running MPI Dakota executable in serial mode.
+Start time: Wed Aug 21 16:44:09 2024
+
+----------------------------
+Begin DAKOTA input file
+rosen_syscall_lamps_3vars.in
+----------------------------
+
+# Dakota Input File: rosen_syscall.in
+# Usage:
+#   dakota -i rosen_syscall_lamps_3vars.in -o rosen_syscall_lamps_3vars.out > rosen_syscall_lamps_3vars.stdout
+
+environment
+  tabular_data
+    tabular_data_file = 'rosen_syscall_lamps_3vars.dat'
+
+method
+  conmin_frcg
+    convergence_tolerance = 1e-8
+    max_iterations = 100
+
+model
+  single
+
+variables
+  continuous_design = 3
+    initial_point    1.2     0.01     -0.1  
+    lower_bounds     -2.0     -2.0     -2.0
+    upper_bounds      2.0      2.0      2.0
+    descriptors       'c0'     'c1'     'c2'
+
+interface
+  analysis_drivers = 'python compute_obj_fun_from_lammps_3vars.py'
+    fork
+    parameters_file = 'params.in'
+    results_file    = 'results.out'
+    #file_tag
+    #file_save
+
+responses
+  objective_functions = 1
+  numerical_gradients
+    method_source dakota
+    interval_type forward
+    fd_step_size = 1.e-2
+  no_hessians
+---------------------
+End DAKOTA input file
+---------------------
+
+Using Dakota input file 'rosen_syscall_lamps_3vars.in'
+Writing new restart file 'dakota.rst'.
+
+>>>>> Executing environment.
+
+>>>>> Running conmin_frcg iterator.
+
+---------------------
+Begin Evaluation    1
+---------------------
+Parameters for evaluation 1:
+                      1.2000000000e+00 c0
+                      1.0000000000e-02 c1
+                     -1.0000000000e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 1:
+Active set vector = { 1 }
+                      7.2661223212e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation    2
+---------------------
+Parameters for evaluation 2:
+                      1.2120000000e+00 c0
+                      1.0000000000e-02 c1
+                     -1.0000000000e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 2:
+Active set vector = { 1 }
+                      7.6103068262e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation    3
+---------------------
+Parameters for evaluation 3:
+                      1.2000000000e+00 c0
+                      1.0100000000e-02 c1
+                     -1.0000000000e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 3:
+Active set vector = { 1 }
+                      7.1098874473e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation    4
+---------------------
+Parameters for evaluation 4:
+                      1.2000000000e+00 c0
+                      1.0000000000e-02 c1
+                     -1.0100000000e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 4:
+Active set vector = { 1 }
+                      7.0253956547e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  2.8682042085e-01 -1.5623487395e+01  2.4072666654e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation    5
+---------------------
+Parameters for evaluation 5:
+                      1.1999916627e+00 c0
+                      1.0454142167e-02 c1
+                     -1.0006997422e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 5:
+Active set vector = { 1 }
+                      7.5922667244e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation    6
+---------------------
+Parameters for evaluation 6:
+                      1.1999971228e+00 c0
+                      1.0156724376e-02 c1
+                     -1.0002414809e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 6:
+Active set vector = { 1 }
+                      7.0774111007e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation    7
+---------------------
+Parameters for evaluation 7:
+                      1.1999961966e+00 c0
+                      1.0207176204e-02 c1
+                     -1.0003192171e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 7:
+Active set vector = { 1 }
+                      7.5454250372e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation    8
+---------------------
+Parameters for evaluation 8:
+                      1.2119970940e+00 c0
+                      1.0156724376e-02 c1
+                     -1.0002414809e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 8:
+Active set vector = { 1 }
+                      7.4898419114e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation    9
+---------------------
+Parameters for evaluation 9:
+                      1.1999971228e+00 c0
+                      1.0258291620e-02 c1
+                     -1.0002414809e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 9:
+Active set vector = { 1 }
+                      7.1633154550e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   10
+---------------------
+Parameters for evaluation 10:
+                      1.1999971228e+00 c0
+                      1.0156724376e-02 c1
+                     -1.0102438957e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 10:
+Active set vector = { 1 }
+                      6.9491252491e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  3.4369316632e-01  8.4578798328e+00  1.2825488049e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   11
+---------------------
+Parameters for evaluation 11:
+                      1.1999433816e+00 c0
+                      9.6697330134e-03 c1
+                     -1.0027394076e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 11:
+Active set vector = { 1 }
+                      7.0553239469e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   12
+---------------------
+Parameters for evaluation 12:
+                      1.1999688514e+00 c0
+                      9.9005351073e-03 c1
+                     -1.0015555535e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 12:
+Active set vector = { 1 }
+                      7.3823807109e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   13
+---------------------
+Parameters for evaluation 13:
+                      1.1998557659e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 13:
+Active set vector = { 1 }
+                      6.7685948401e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   14
+---------------------
+Parameters for evaluation 14:
+                      1.2118543236e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 14:
+Active set vector = { 1 }
+                      7.0503825361e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   15
+---------------------
+Parameters for evaluation 15:
+                      1.1998557659e+00 c0
+                      8.9757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 15:
+Active set vector = { 1 }
+                      6.8539451569e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   16
+---------------------
+Parameters for evaluation 16:
+                      1.1998557659e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0168799624e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 16:
+Active set vector = { 1 }
+                      6.7866835972e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  2.3485130803e-01  8.5350316862e+00 -1.7966373027e-01 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   17
+---------------------
+Parameters for evaluation 17:
+                      1.1998410316e+00 c0
+                      8.5993403235e-03 c1
+                     -1.0072131214e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 17:
+Active set vector = { 1 }
+                      6.8700923700e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   18
+---------------------
+Parameters for evaluation 18:
+                      1.1998506172e+00 c0
+                      8.7791800888e-03 c1
+                     -1.0069520657e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 18:
+Active set vector = { 1 }
+                      6.8418779635e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   19
+---------------------
+Parameters for evaluation 19:
+                      1.1998546951e+00 c0
+                      8.8556874615e-03 c1
+                     -1.0068410075e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 19:
+Active set vector = { 1 }
+                      6.8576039820e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> Initial map for analytic portion of response
+      augmented with data requirements for differencing:
+
+---------------------
+Begin Evaluation   20
+---------------------
+Parameters for evaluation 20:
+                      1.1998557659e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 20:
+Active set vector = { 1 }
+                      6.7685948400e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   21
+---------------------
+Parameters for evaluation 21:
+                      1.2118543236e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 21:
+Active set vector = { 1 }
+                      7.0503825413e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   22
+---------------------
+Parameters for evaluation 22:
+                      1.1998557659e+00 c0
+                      8.9757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 22:
+Active set vector = { 1 }
+                      6.8539447594e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   23
+---------------------
+Parameters for evaluation 23:
+                      1.1998557659e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0168799624e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 23:
+Active set vector = { 1 }
+                      6.7866835972e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  2.3485131238e-01  8.5349919375e+00 -1.7966373062e-01 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   24
+---------------------
+Parameters for evaluation 24:
+                      1.1998483600e+00 c0
+                      8.7026819472e-03 c1
+                     -1.0069457731e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 24:
+Active set vector = { 1 }
+                      7.0847692173e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   25
+---------------------
+Parameters for evaluation 25:
+                      1.1998545870e+00 c0
+                      8.8482244176e-03 c1
+                     -1.0068331629e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 25:
+Active set vector = { 1 }
+                      6.8337754168e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   26
+---------------------
+Parameters for evaluation 26:
+                      1.1998556283e+00 c0
+                      8.8725621782e-03 c1
+                     -1.0068143322e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 26:
+Active set vector = { 1 }
+                      7.1481925980e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> Initial map for analytic portion of response
+      augmented with data requirements for differencing:
+
+---------------------
+Begin Evaluation   27
+---------------------
+Parameters for evaluation 27:
+                      1.1998557659e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 27:
+Active set vector = { 1 }
+                      6.7685948400e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   28
+---------------------
+Parameters for evaluation 28:
+                      1.2118543236e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 28:
+Active set vector = { 1 }
+                      7.0503825413e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   29
+---------------------
+Parameters for evaluation 29:
+                      1.1998557659e+00 c0
+                      8.9757780324e-03 c1
+                     -1.0068118440e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 29:
+Active set vector = { 1 }
+                      6.8539447594e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   30
+---------------------
+Parameters for evaluation 30:
+                      1.1998557659e+00 c0
+                      8.8757780324e-03 c1
+                     -1.0168799624e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 30:
+Active set vector = { 1 }
+                      6.7866835972e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  2.3485131238e-01  8.5349919375e+00 -1.7966373062e-01 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   31
+---------------------
+Parameters for evaluation 31:
+                      1.1998557441e+00 c0
+                      8.8749859425e-03 c1
+                     -1.0068116772e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 31:
+Active set vector = { 1 }
+                      6.7667564410e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   32
+---------------------
+Parameters for evaluation 32:
+                      1.1998556569e+00 c0
+                      8.8718175832e-03 c1
+                     -1.0068110103e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 32:
+Active set vector = { 1 }
+                      7.1574657286e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   33
+---------------------
+Parameters for evaluation 33:
+                      1.1998557461e+00 c0
+                      8.8750577347e-03 c1
+                     -1.0068116924e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 33:
+Active set vector = { 1 }
+                      6.7668938827e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> Initial map for analytic portion of response
+      augmented with data requirements for differencing:
+
+---------------------
+Begin Evaluation   34
+---------------------
+Parameters for evaluation 34:
+                      1.1998557441e+00 c0
+                      8.8749859425e-03 c1
+                     -1.0068116772e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 34:
+Active set vector = { 1 }
+                      6.7667564410e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   35
+---------------------
+Parameters for evaluation 35:
+                      1.2118543015e+00 c0
+                      8.8749859425e-03 c1
+                     -1.0068116772e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 35:
+Active set vector = { 1 }
+                      7.2329489358e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   36
+---------------------
+Parameters for evaluation 36:
+                      1.1998557441e+00 c0
+                      8.9749859425e-03 c1
+                     -1.0068116772e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 36:
+Active set vector = { 1 }
+                      6.8881702110e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   37
+---------------------
+Parameters for evaluation 37:
+                      1.1998557441e+00 c0
+                      8.8749859425e-03 c1
+                     -1.0168797940e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 37:
+Active set vector = { 1 }
+                      6.8859697277e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  3.8854045333e-01  1.2141376994e+01 -1.1840673815e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   38
+---------------------
+Parameters for evaluation 38:
+                      1.1998557220e+00 c0
+                      8.8742336227e-03 c1
+                     -1.0068112827e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 38:
+Active set vector = { 1 }
+                      6.9738009643e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   39
+---------------------
+Parameters for evaluation 39:
+                      1.1998557439e+00 c0
+                      8.8749784193e-03 c1
+                     -1.0068116733e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 39:
+Active set vector = { 1 }
+                      6.7667239535e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   40
+---------------------
+Parameters for evaluation 40:
+                      1.1998557430e+00 c0
+                      8.8749483265e-03 c1
+                     -1.0068116575e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 40:
+Active set vector = { 1 }
+                      6.7666524280e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   41
+---------------------
+Parameters for evaluation 41:
+                      1.2118543004e+00 c0
+                      8.8749483265e-03 c1
+                     -1.0068116575e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 41:
+Active set vector = { 1 }
+                      7.3736156970e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   42
+---------------------
+Parameters for evaluation 42:
+                      1.1998557430e+00 c0
+                      8.9749483265e-03 c1
+                     -1.0068116575e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 42:
+Active set vector = { 1 }
+                      6.8881512215e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   43
+---------------------
+Parameters for evaluation 43:
+                      1.1998557430e+00 c0
+                      8.8749483265e-03 c1
+                     -1.0168797741e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 43:
+Active set vector = { 1 }
+                      6.8870867448e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  5.0586353618e-01  1.2149879352e+01 -1.1961950974e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   44
+---------------------
+Parameters for evaluation 44:
+                      1.1998557169e+00 c0
+                      8.8741554152e-03 c1
+                     -1.0068111356e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 44:
+Active set vector = { 1 }
+                      6.9758035043e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   45
+---------------------
+Parameters for evaluation 45:
+                      1.1998557427e+00 c0
+                      8.8749403974e-03 c1
+                     -1.0068116523e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 45:
+Active set vector = { 1 }
+                      6.7666448124e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   46
+---------------------
+Parameters for evaluation 46:
+                      1.1998557417e+00 c0
+                      8.8749086810e-03 c1
+                     -1.0068116314e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 46:
+Active set vector = { 1 }
+                      6.7665947453e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   47
+---------------------
+Parameters for evaluation 47:
+                      1.2118542991e+00 c0
+                      8.8749086810e-03 c1
+                     -1.0068116314e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 47:
+Active set vector = { 1 }
+                      7.5043750795e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   48
+---------------------
+Parameters for evaluation 48:
+                      1.1998557417e+00 c0
+                      8.9749086810e-03 c1
+                     -1.0068116314e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 48:
+Active set vector = { 1 }
+                      6.8881207956e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   49
+---------------------
+Parameters for evaluation 49:
+                      1.1998557417e+00 c0
+                      8.8749086810e-03 c1
+                     -1.0168797477e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 49:
+Active set vector = { 1 }
+                      6.8881757304e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  6.1489086443e-01  1.2152605030e+01 -1.2075842326e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   50
+---------------------
+Parameters for evaluation 50:
+                      1.1998557213e+00 c0
+                      8.8743569319e-03 c1
+                     -1.0068112266e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 50:
+Active set vector = { 1 }
+                      6.9695720753e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   51
+---------------------
+Parameters for evaluation 51:
+                      1.1998557415e+00 c0
+                      8.8749031635e-03 c1
+                     -1.0068116274e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 51:
+Active set vector = { 1 }
+                      6.7665854556e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   52
+---------------------
+Parameters for evaluation 52:
+                      1.1998557407e+00 c0
+                      8.8748810935e-03 c1
+                     -1.0068116112e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 52:
+Active set vector = { 1 }
+                      6.7665484418e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   53
+---------------------
+Parameters for evaluation 53:
+                      1.2118542981e+00 c0
+                      8.8748810935e-03 c1
+                     -1.0068116112e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 53:
+Active set vector = { 1 }
+                      7.4985634544e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   54
+---------------------
+Parameters for evaluation 54:
+                      1.1998557407e+00 c0
+                      8.9748810935e-03 c1
+                     -1.0068116112e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 54:
+Active set vector = { 1 }
+                      6.8881088553e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   55
+---------------------
+Parameters for evaluation 55:
+                      1.1998557407e+00 c0
+                      8.8748810935e-03 c1
+                     -1.0168797273e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 55:
+Active set vector = { 1 }
+                      6.8889301753e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  6.1008585264e-01  1.2156041357e+01 -1.2155375660e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   56
+---------------------
+Parameters for evaluation 56:
+                      1.1998557131e+00 c0
+                      8.8743313345e-03 c1
+                     -1.0068110614e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 56:
+Active set vector = { 1 }
+                      6.9696226628e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   57
+---------------------
+Parameters for evaluation 57:
+                      1.1998557404e+00 c0
+                      8.8748755959e-03 c1
+                     -1.0068116057e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 57:
+Active set vector = { 1 }
+                      6.7665375610e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   58
+---------------------
+Parameters for evaluation 58:
+                      1.1998557393e+00 c0
+                      8.8748536056e-03 c1
+                     -1.0068115837e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 58:
+Active set vector = { 1 }
+                      6.7664725022e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   59
+---------------------
+Parameters for evaluation 59:
+                      1.2118542967e+00 c0
+                      8.8748536056e-03 c1
+                     -1.0068115837e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 59:
+Active set vector = { 1 }
+                      7.4981521785e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   60
+---------------------
+Parameters for evaluation 60:
+                      1.1998557393e+00 c0
+                      8.9748536056e-03 c1
+                     -1.0068115837e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 60:
+Active set vector = { 1 }
+                      6.8880911052e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   61
+---------------------
+Parameters for evaluation 61:
+                      1.1998557393e+00 c0
+                      8.8748536056e-03 c1
+                     -1.0168796995e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 61:
+Active set vector = { 1 }
+                      6.8896543748e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  6.0980637279e-01  1.2161860299e+01 -1.2234848557e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   62
+---------------------
+Parameters for evaluation 62:
+                      1.1998557117e+00 c0
+                      8.8743041632e-03 c1
+                     -1.0068110326e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 62:
+Active set vector = { 1 }
+                      6.9703152740e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   63
+---------------------
+Parameters for evaluation 63:
+                      1.1998557390e+00 c0
+                      8.8748481111e-03 c1
+                     -1.0068115782e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 63:
+Active set vector = { 1 }
+                      6.7664516052e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   64
+---------------------
+Parameters for evaluation 64:
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 64:
+Active set vector = { 1 }
+                      6.7663866704e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> map at X performed previously and results retrieved
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   65
+---------------------
+Parameters for evaluation 65:
+                      1.2118542953e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 65:
+Active set vector = { 1 }
+                      7.2253966049e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   66
+---------------------
+Parameters for evaluation 66:
+                      1.1998557379e+00 c0
+                      8.9748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 66:
+Active set vector = { 1 }
+                      6.8880809380e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   67
+---------------------
+Parameters for evaluation 67:
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0168796717e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 67:
+Active set vector = { 1 }
+                      6.8904463685e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  3.8255426883e-01  1.2169426763e+01 -1.2322037560e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   68
+---------------------
+Parameters for evaluation 68:
+                      1.1998557138e+00 c0
+                      8.8742764769e-03 c1
+                     -1.0068110031e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 68:
+Active set vector = { 1 }
+                      6.9709235155e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   69
+---------------------
+Parameters for evaluation 69:
+                      1.1998557377e+00 c0
+                      8.8748206369e-03 c1
+                     -1.0068115506e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 69:
+Active set vector = { 1 }
+                      6.9215112456e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   70
+---------------------
+Parameters for evaluation 70:
+                      1.1998557367e+00 c0
+                      8.8747986506e-03 c1
+                     -1.0068115285e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 70:
+Active set vector = { 1 }
+                      6.9206542019e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> Initial map for analytic portion of response
+      augmented with data requirements for differencing:
+
+---------------------
+Begin Evaluation   71
+---------------------
+Parameters for evaluation 71:
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 71:
+Active set vector = { 1 }
+                      6.7663866704e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   72
+---------------------
+Parameters for evaluation 72:
+                      1.2118542953e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 72:
+Active set vector = { 1 }
+                      7.2253966049e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   73
+---------------------
+Parameters for evaluation 73:
+                      1.1998557379e+00 c0
+                      8.9748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 73:
+Active set vector = { 1 }
+                      6.8880809380e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   74
+---------------------
+Parameters for evaluation 74:
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0168796717e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 74:
+Active set vector = { 1 }
+                      6.8904463685e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  3.8255426883e-01  1.2169426763e+01 -1.2322037560e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   75
+---------------------
+Parameters for evaluation 75:
+                      1.1998557155e+00 c0
+                      8.8742764323e-03 c1
+                     -1.0068110022e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 75:
+Active set vector = { 1 }
+                      6.9708927696e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   76
+---------------------
+Parameters for evaluation 76:
+                      1.1998557377e+00 c0
+                      8.8748206364e-03 c1
+                     -1.0068115506e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 76:
+Active set vector = { 1 }
+                      6.9215116977e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   77
+---------------------
+Parameters for evaluation 77:
+                      1.1998557368e+00 c0
+                      8.8747986484e-03 c1
+                     -1.0068115284e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 77:
+Active set vector = { 1 }
+                      6.9206546622e-02 obj_fn
+
+
+
+------------------------------------------
+Begin Dakota derivative estimation routine
+------------------------------------------
+
+>>>>> Initial map for analytic portion of response
+      augmented with data requirements for differencing:
+
+---------------------
+Begin Evaluation   78
+---------------------
+Parameters for evaluation 78:
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 78:
+Active set vector = { 1 }
+                      6.7663866704e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[1] + h:
+
+---------------------
+Begin Evaluation   79
+---------------------
+Parameters for evaluation 79:
+                      1.2118542953e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 79:
+Active set vector = { 1 }
+                      7.2253966028e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[2] + h:
+
+---------------------
+Begin Evaluation   80
+---------------------
+Parameters for evaluation 80:
+                      1.1998557379e+00 c0
+                      8.9748261334e-03 c1
+                     -1.0068115561e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 80:
+Active set vector = { 1 }
+                      6.8880829811e-02 obj_fn
+
+
+>>>>> Dakota finite difference gradient evaluation for x[3] + h:
+
+---------------------
+Begin Evaluation   81
+---------------------
+Parameters for evaluation 81:
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0168796717e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 81:
+Active set vector = { 1 }
+                      6.8904463685e-02 obj_fn
+
+
+>>>>> Total response returned to iterator:
+
+Active set vector = { 2 } Deriv vars vector = { 1 2 3 }
+ [  3.8255426703e-01  1.2169631071e+01 -1.2322037559e+00 ] obj_fn gradient
+
+
+
+---------------------
+Begin Evaluation   82
+---------------------
+Parameters for evaluation 82:
+                      1.1998557206e+00 c0
+                      8.8742763077e-03 c1
+                     -1.0068109994e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 82:
+Active set vector = { 1 }
+                      6.9708280509e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   83
+---------------------
+Parameters for evaluation 83:
+                      1.1998557377e+00 c0
+                      8.8748206352e-03 c1
+                     -1.0068115506e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 83:
+Active set vector = { 1 }
+                      6.9215117508e-02 obj_fn
+
+
+
+---------------------
+Begin Evaluation   84
+---------------------
+Parameters for evaluation 84:
+                      1.1998557371e+00 c0
+                      8.8747986422e-03 c1
+                     -1.0068115283e-01 c2
+
+blocking fork: python compute_obj_fun_from_lammps_3vars.py params.in results.out
+
+Active response data for evaluation 84:
+Active set vector = { 1 }
+                      6.9206628248e-02 obj_fn
+
+
+<<<<< Function evaluation summary: 84 total (84 new, 0 duplicate)
+<<<<< Best parameters          =
+                      1.1998557379e+00 c0
+                      8.8748261334e-03 c1
+                     -1.0068115561e-01 c2
+<<<<< Best objective function  =
+                      6.7663866704e-02
+<<<<< Best evaluation ID not available
+(This warning may occur when the best iterate is comprised of multiple interface
+evaluations or arises from a composite, surrogate, or transformation model.)
+
+
+<<<<< Iterator conmin_frcg completed.
+<<<<< Environment execution completed.
+DAKOTA execution time in seconds:
+  Total CPU        =   0.076502 [parent =   0.076499, child =      3e-06]
+  Total wall clock =    108.392

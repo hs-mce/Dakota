@@ -147,12 +147,13 @@ thermo_style custom step lx lx ly lz atoms temp pe lx ly lz press c_KET c_PET
 thermo_modify lost ignore flush yes
 
 #dump 1 all custom 100 out_100/*.chkpt id type mass x y z 
-dump  1 all custom 10 output-*.txt id type x y z mass c_KE c_PE
+# dump  1 all custom 10 output-*.txt id type x y z mass c_KE c_PE
 
 min_style    cg
 min_modify   line backtrack
 minimize     1e-8 1.0e-10 10000 10000
 
-write_data relaxed_fin.lmp
+write_dump all custom relaxed_fin.txt id type x y z mass c_KE c_PE
+# write_data relaxed_fin.lmp
 
 #run ${runtime}

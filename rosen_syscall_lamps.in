@@ -9,15 +9,15 @@ environment
 
 method
   conmin_frcg
-    convergence_tolerance = 1e-6
-    max_iterations = 100
+     convergence_tolerance = 1e-12
+     max_iterations = 100
 
 model
   single
 
 variables
   continuous_design = 2
-    initial_point    1.2157     0.0271471
+    initial_point    0.1 0.08                    # 0.0271471
     lower_bounds     -4.0     -4.0
     upper_bounds      4.0      4.0
     descriptors       'x1'     "x2"

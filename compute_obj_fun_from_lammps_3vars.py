@@ -110,7 +110,7 @@ def write_pair_potential(c0_, c1_, c2_):
 
 
 def dyn_lammps(x1, x2, x3):
-    data_exp = np.loadtxt('outputR-2000000.txt', skiprows=9)
+    data_exp = np.loadtxt('outputNEW.txt', skiprows=9)
     Natoms = data_exp.shape[0]
     exp_cords = []
 
@@ -129,17 +129,17 @@ def dyn_lammps(x1, x2, x3):
     lmp.file('bcc_disc_edge_new.in')
     lmp.close()
 
-    # Read the final equilibrated state of FS potential
+   # Read the final equilibrated state of FS potential
     # readfile = 326
     # textFileName = f'output-{readfile}.txt'
-    textFileName = 'relaxed_fin.lmp'
-
+    # textFileName = 'relaxed_fin.lmp'
+    textFileName = 'relaxed_fin.txt'
     # data = np.loadtxt(textFileName, skiprows=9)
     # data = np.loadtxt(textFileName, skiprows=16)
     # Natoms = data.shape[0]
     Natoms = 8214
-    data = np.loadtxt(textFileName, skiprows=16, max_rows=Natoms)
-
+    # data = np.loadtxt(textFileName, skiprows=16, max_rows=Natoms)
+    data = np.loadtxt(textFileName, skiprows=9)
     # embed()
 
     # Calculate the least square distance
